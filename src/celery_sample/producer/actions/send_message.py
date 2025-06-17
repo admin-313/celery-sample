@@ -13,4 +13,4 @@ class SendMessage:
         self._celery = celery
 
     async def __call__(self, data: SendMessageRequest) -> None:
-        pass
+        self._celery.send_task("test.handler", kwargs={"data": data.message})
