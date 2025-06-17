@@ -8,3 +8,9 @@ services:
       - /var/lib/rabbitmq:/var/lib/rabbitmq
       - /var/log/rabbitmq:/var/log/rabbitmq
     restart: "on-failure"
+
+  redis-main:
+    image: "redis:8.0.2-alpine"
+    ports:
+      - "6379:6379"
+    restart: "on-failure"
