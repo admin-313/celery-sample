@@ -4,7 +4,7 @@ from typing import Any
 from celery import Celery
 
 
-@dataclass(slots=True)
+@dataclass(frozen=True, slots=True)
 class SendMessageRequest:
     message: str
 
@@ -15,6 +15,7 @@ class SendMessage:
 
     async def __call__(self, data: SendMessageRequest) -> Any:
         task = self._celery.send_task(
-            "test.handler", kwargs={"data": data.message},
+            "test.handler",
+            kwargs={"data": data.message},
         )
         return task.id
