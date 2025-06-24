@@ -1,10 +1,10 @@
-from typing import Annotated
-
-from fastapi import APIRouter, Depends
+from dependency_injector.wiring import Provide, inject
+from fastapi import APIRouter
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, Field
 
 from producer.actions.send_message import SendMessage, SendMessageRequest
+from producer.bootstrap.containers import Container
 
 producer_router = APIRouter(prefix="/produce")
 
@@ -14,9 +14,10 @@ class ProducerRouterPost(BaseModel):
 
 
 @producer_router.post("/")
+@inject
 async def post_message(
     request: ProducerRouterPost,
-    action: Annotated[SendMessage, Depends(SendMessage)],
+    action: SendMessage = Provide[Container.send_message],
 ) -> JSONResponse:
     message = SendMessageRequest(message=request.message)
     task_id = action(data=message)
