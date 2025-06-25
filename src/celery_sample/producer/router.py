@@ -22,6 +22,6 @@ async def post_message(
     action: Annotated[SendMessage, Depends(Provide[Container.send_message])],
 ) -> JSONResponse:
     action_data = SendMessageRequest(message=request.message)
-    task_id = action(data=action_data)
+    task_id = await action(data=action_data)
 
     return JSONResponse(content={"task_id": task_id}, status_code=202)
