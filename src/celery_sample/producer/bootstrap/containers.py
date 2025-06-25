@@ -12,7 +12,7 @@ class Container(containers.DeclarativeContainer):
         Celery,
         main="worker",
         broker="pyamqp://guest:guest@172.20.0.4:5672//",
-        backend="redis://:RvPtXZyLRxRd7zvj3mieYvXAQAQH9Cjw@172.20.0.3:6379/0",
+        backend="redis://aboba:RvPtXZyLRxRd7zvj3mieYvXAQAQH9Cjw@172.20.0.3:6379/0",
     )
 
     send_message: Factory[SendMessage] = Factory(SendMessage, celery=celery)
