@@ -20,8 +20,9 @@ services:
       rabbit-redis:
         ipv4_address: 172.20.0.3
     restart: "on-failure"
+    command: "redis-server /usr/local/etc/redis/redis.conf"
     volumes:
-    - "./redis.conf:/etc/redis/redis.conf:ro"
+    - "./redis.conf:/usr/local/etc/redis/redis.conf"
 
 networks:
   rabbit-redis:
