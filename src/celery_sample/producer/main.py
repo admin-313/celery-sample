@@ -1,13 +1,14 @@
-import asyncio
-
 from fastapi import FastAPI
 
-from producer.router import producer_router
+from producer.bootstrap.bootstrap import fastapi_bootstrap
+from producer.bootstrap.containers import Container
 
 
-async def main() -> None:
-    print("Hello from celery-sample!")
+def main() -> FastAPI:
+    container = Container()
+    fastapi: FastAPI = fastapi_bootstrap()
+    fastapi.container = container  # type: ignore[attr-defined]
+    return fastapi
 
 
-if __name__ == "__main__":
-    asyncio.run(main())
+app = main()
