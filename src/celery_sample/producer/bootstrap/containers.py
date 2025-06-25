@@ -6,6 +6,8 @@ from producer.actions.send_message import SendMessage
 
 
 class Container(containers.DeclarativeContainer):
+    wiring_config = containers.WiringConfiguration(modules=["producer.router"])
+
     celery: Singleton[Celery] = Singleton(
         Celery,
         main="worker",
