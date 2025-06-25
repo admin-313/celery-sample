@@ -21,7 +21,7 @@ async def post_message(
     request: ProducerRouterPost,
     action: Annotated[SendMessage, Depends(Provide[Container.send_message])],
 ) -> JSONResponse:
-    message = SendMessageRequest(message=request.message)
-    task_id = action(data=message)
+    action_data = SendMessageRequest(message=request.message)
+    task_id = action(data=action_data)
 
     return JSONResponse(content={"task_id": task_id}, status_code=202)
