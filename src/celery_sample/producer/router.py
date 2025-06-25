@@ -1,5 +1,7 @@
+from typing import Annotated
+
 from dependency_injector.wiring import Provide, inject
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, Field
 
@@ -17,7 +19,7 @@ class ProducerRouterPost(BaseModel):
 @inject
 async def post_message(
     request: ProducerRouterPost,
-    action: SendMessage = Provide[Container.send_message],
+    action: Annotated[SendMessage, Depends(Provide[Container.send_message])],
 ) -> JSONResponse:
     message = SendMessageRequest(message=request.message)
     task_id = action(data=message)
