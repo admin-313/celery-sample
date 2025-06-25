@@ -4,6 +4,9 @@ services:
     ports:
       - "5672"
       - "15672"
+    networks:
+      rabbit-redis:
+        ipv4_address: 172.20.0.4
     volumes:
       - /var/lib/rabbitmq:/var/lib/rabbitmq
       - /var/log/rabbitmq:/var/log/rabbitmq
@@ -13,6 +16,17 @@ services:
     image: "redis:8.0.2-alpine"
     ports:
       - "6379:6379"
+    networks:
+      rabbit-redis:
+        ipv4_address: 172.20.0.3
     restart: "on-failure"
     volumes:
     - "./redis.conf:/etc/redis/redis.conf:ro"
+
+networks:
+  rabbit-redis:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/24
+          gateway: 172.20.0.1
