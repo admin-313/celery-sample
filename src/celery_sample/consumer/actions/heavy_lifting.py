@@ -1,5 +1,6 @@
 import asyncio
 import logging
+import secrets
 from dataclasses import dataclass
 
 from celery import Celery
@@ -18,4 +19,11 @@ class HeavyLifting:
 
     async def __call__(self, data: HeavyLiftingRequest) -> None:
         await asyncio.sleep(delay=3)
+        self._fail_randomly()
         logger.info(f"The job {data.message} has been succedeed")  # noqa: G004
+
+    def _fail_randomly(self) -> None:
+        if secrets.randbelow(exclusive_upper_bound=2) == 1:
+            logger.info("Better luck next time")
+            msg = "skill issue"
+            raise ValueError(msg)
