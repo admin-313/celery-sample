@@ -10,7 +10,7 @@ class Container(containers.DeclarativeContainer):
 
     celery: Singleton[Celery] = Singleton(
         Celery,
-        main="worker",
+        main="producer",
         broker="pyamqp://guest:guest@172.20.0.4:5672//",
         backend="redis://aboba:RvPtXZyLRxRd7zvj3mieYvXAQAQH9Cjw@172.20.0.3:6379/0",
     )
