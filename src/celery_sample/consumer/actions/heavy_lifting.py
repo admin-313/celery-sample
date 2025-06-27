@@ -1,6 +1,6 @@
-import asyncio
 import logging
 import secrets
+import time
 from dataclasses import dataclass
 
 from celery import Celery
@@ -17,8 +17,8 @@ class HeavyLifting:
     def __init__(self, celery: Celery) -> None:
         self._celery = celery
 
-    async def __call__(self, data: HeavyLiftingRequest) -> None:
-        await asyncio.sleep(delay=3)
+    def __call__(self, data: HeavyLiftingRequest) -> None:
+        time.sleep(secrets.randbelow(10))
         self._fail_randomly()
         logger.info(f"The job {data.message} has been succedeed")  # noqa: G004
 
