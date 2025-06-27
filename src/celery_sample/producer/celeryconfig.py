@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 
 @dataclass(frozen=True, slots=True)
@@ -10,6 +10,6 @@ class CeleryConfig:
 
     task_serializer: str = "json"
     result_serializer: str = "json"
-    accept_content: list[str] = ["json"]  # noqa:RUF008
+    accept_content: list[str] = field(default_factory=lambda: ["json"])
     timezone: str = "UTC"
     enable_utc: bool = True
