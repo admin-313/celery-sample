@@ -16,6 +16,19 @@
             "env": {
                 "PYTHONPATH": "${workspaceFolder}/src/celery_sample"
             }
+        },
+        {
+            "name": "Celery consumer debug",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "celery",
+            "args": [
+                "-A", "src.celery_sample.consumer.main", "worker",
+                "-l", "INFO"
+            ],
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}/src/celery_sample"
+            }
         }
     ]
 }
