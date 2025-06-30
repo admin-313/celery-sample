@@ -6,10 +6,10 @@ from consumer.actions.heavy_lifting import HeavyLifting, HeavyLiftingRequest
 from consumer.bootstrap.container import ConsumerContainer
 from consumer.bootstrap.heavy_lifting_request import HeavyLiftingTask
 
+logger = logging.getLogger(__name__)
+
 consumer_container = ConsumerContainer()
 celery = consumer_container.celery()
-
-logger = logging.getLogger(__name__)
 
 
 @celery.task(base=HeavyLiftingTask, name="test.send_message")
