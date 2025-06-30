@@ -7,7 +7,7 @@ from dependency_injector.containers import (
 )
 from dependency_injector.providers import Factory, Singleton
 
-from consumer.actions.heavy_lifting import IOHeavyLifting
+from consumer.actions.io_heavy_lifting import IOHeavyLifting
 from consumer.celeryconfig import CeleryConfig
 
 

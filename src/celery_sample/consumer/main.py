@@ -2,7 +2,7 @@ import logging
 
 from dependency_injector.wiring import Provide, inject
 
-from consumer.actions.heavy_lifting import (
+from consumer.actions.io_heavy_lifting import (
     IOHeavyLifting,
     IOHeavyLiftingRequest,
 )
