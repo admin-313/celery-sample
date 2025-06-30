@@ -33,12 +33,12 @@ celery = consumer_container.celery()
 @inject
 def run_io_heavy_lifting(
     data: str,
-    heavy_lifting: IOHeavyLifting = Provide[
+    io_heavy_lifting: IOHeavyLifting = Provide[
         ConsumerContainer.io_heavy_lifting_action
     ],
 ) -> None:
     input_ = IOHeavyLiftingRequest(message=data)
-    heavy_lifting(data=input_)
+    io_heavy_lifting(data=input_)
 
 
 @celery.task(
@@ -54,9 +54,9 @@ def run_io_heavy_lifting(
 @inject
 def run_cpu_heavy_lifting(
     data: str,
-    heavy_lifting: CPUHeavyLifting = Provide[
+    cpu_heavy_lifting: CPUHeavyLifting = Provide[
         ConsumerContainer.cpu_heavy_lifting_action
     ],
 ) -> None:
     input_ = CPUHeavyLiftingRequest(message=data)
-    heavy_lifting(data=input_)
+    cpu_heavy_lifting(data=input_)
