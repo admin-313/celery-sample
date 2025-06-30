@@ -2,7 +2,10 @@ import logging
 
 from dependency_injector.wiring import Provide, inject
 
-from consumer.actions.heavy_lifting import HeavyLifting, HeavyLiftingRequest
+from consumer.actions.heavy_lifting import (
+    IOHeavyLifting,
+    IOHeavyLiftingRequest,
+)
 from consumer.bootstrap.container import ConsumerContainer
 from consumer.bootstrap.heavy_lifting_request import HeavyLiftingTask
 
@@ -26,9 +29,9 @@ celery = consumer_container.celery()
 def run_heavy_lifting(
     self,
     data: str,
-    heavy_lifting: HeavyLifting = Provide[
-        ConsumerContainer.heavy_lifting_action
+    heavy_lifting: IOHeavyLifting = Provide[
+        ConsumerContainer.io_heavy_lifting_action
     ],
 ) -> None:
-    input_ = HeavyLiftingRequest(message=data)
+    input_ = IOHeavyLiftingRequest(message=data)
     heavy_lifting(data=input_)

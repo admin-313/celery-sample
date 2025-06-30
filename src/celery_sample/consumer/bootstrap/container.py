@@ -7,7 +7,7 @@ from dependency_injector.containers import (
 )
 from dependency_injector.providers import Factory, Singleton
 
-from consumer.actions.heavy_lifting import HeavyLifting
+from consumer.actions.heavy_lifting import IOHeavyLifting
 from consumer.celeryconfig import CeleryConfig
 
 
@@ -20,6 +20,6 @@ class ConsumerContainer(DeclarativeContainer):
         **asdict(CeleryConfig()),
     )
 
-    heavy_lifting_action: Factory[HeavyLifting] = Factory(
-        HeavyLifting, celery=celery,
+    io_heavy_lifting_action: Factory[IOHeavyLifting] = Factory(
+        IOHeavyLifting, celery=celery,
     )

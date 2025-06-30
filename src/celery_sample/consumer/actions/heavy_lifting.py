@@ -9,15 +9,15 @@ logger = logging.getLogger(__name__)
 
 
 @dataclass(frozen=True, slots=True)
-class HeavyLiftingRequest:
+class IOHeavyLiftingRequest:
     message: str
 
 
-class HeavyLifting:
+class IOHeavyLifting:
     def __init__(self, celery: Celery) -> None:
         self._celery = celery
 
-    def __call__(self, data: HeavyLiftingRequest) -> None:
+    def __call__(self, data: IOHeavyLiftingRequest) -> None:
         time.sleep(secrets.randbelow(10))
         self._fail_randomly()
         logger.info(f"The job {data.message} has been succedeed")  # noqa: G004
