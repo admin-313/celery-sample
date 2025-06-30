@@ -14,9 +14,10 @@ celery = consumer_container.celery()
 
 
 @celery.task(
+    bind=True,
     base=HeavyLiftingTask,
     name="test.send_message",
-    bind=True,
+    acks_late=True,
     autoretry_for=(ValueError,),
     retry_kwargs={"max_retries": 3, "countdown": 2},
 )
