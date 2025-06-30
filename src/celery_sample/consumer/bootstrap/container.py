@@ -1,14 +1,17 @@
 from dataclasses import asdict
 
 from celery import Celery
-from dependency_injector.containers import Container, WiringConfiguration
+from dependency_injector.containers import (
+    DeclarativeContainer,
+    WiringConfiguration,
+)
 from dependency_injector.providers import Factory, Singleton
 
 from consumer.actions.heavy_lifting import HeavyLifting
 from consumer.celeryconfig import CeleryConfig
 
 
-class ConsumerContainer(Container):
+class ConsumerContainer(DeclarativeContainer):
     wiring_config = WiringConfiguration(modules=["consumer.main"])
 
     celery: Singleton[Celery] = Singleton(
