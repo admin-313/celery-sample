@@ -9,7 +9,7 @@ from consumer.celeryconfig import CeleryConfig
 
 
 class ConsumerContainer(Container):
-    wiring_config = WiringConfiguration(modules=["consumer.consumer"])
+    wiring_config = WiringConfiguration(modules=["consumer.main"])
 
     celery: Singleton[Celery] = Singleton(
         Celery,
