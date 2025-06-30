@@ -17,17 +17,17 @@ celery = consumer_container.celery()
 
 
 @celery.task(
-    bind=True,
     base=HeavyLiftingTask,
     name="test.io_bound",
     acks_late=True,
     task_acks_on_failure_or_timeout=True,
     autoretry_for=(ValueError,),
     retry_kwargs={"max_retries": 3, "countdown": 2},
+    worker_concurrency=12,
+    worker_deduplicate_successful_tasks=False,
 )
 @inject
 def run_heavy_lifting(
-    self,
     data: str,
     heavy_lifting: IOHeavyLifting = Provide[
         ConsumerContainer.io_heavy_lifting_action
