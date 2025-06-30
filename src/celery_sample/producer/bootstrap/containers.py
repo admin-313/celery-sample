@@ -4,6 +4,7 @@ from celery import Celery
 from dependency_injector import containers
 from dependency_injector.providers import Factory, Singleton
 
+from producer.actions.cpu_bound import CPUBound
 from producer.actions.send_message import SendMessage
 from producer.celeryconfig import CeleryConfig
 
@@ -16,3 +17,4 @@ class Container(containers.DeclarativeContainer):
     )
 
     send_message: Factory[SendMessage] = Factory(SendMessage, celery=celery)
+    cpu_bound: Factory[CPUBound] = Factory(CPUBound, celery=celery)
