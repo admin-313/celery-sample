@@ -18,7 +18,7 @@ celery = consumer_container.celery()
     name="test.send_message",
     bind=True,
     autoretry_for=(ValueError,),
-    retry_kwargs={"max_retries": 5, "countdown": 2},
+    retry_kwargs={"max_retries": 3, "countdown": 2},
 )
 @inject
 def run_heavy_lifting(
