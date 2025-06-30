@@ -18,6 +18,7 @@ celery = consumer_container.celery()
     base=HeavyLiftingTask,
     name="test.send_message",
     acks_late=True,
+    task_acks_on_failure_or_timeout=True,
     autoretry_for=(ValueError,),
     retry_kwargs={"max_retries": 3, "countdown": 2},
 )
