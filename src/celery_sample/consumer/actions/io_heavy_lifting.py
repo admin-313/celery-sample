@@ -24,6 +24,6 @@ class IOHeavyLifting:
 
     def _fail_randomly(self) -> None:
         if secrets.randbelow(exclusive_upper_bound=2) == 1:
-            logger.info("Better luck next time")
-            msg = "skill issue"
+            msg = "Better luck next time"
+            logger.info(msg)
             raise ValueError(msg)
