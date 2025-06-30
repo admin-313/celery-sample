@@ -18,6 +18,11 @@ class HeavyLiftingRequest(Request):
         super().on_failure(exc_info, send_failed_event, return_ok)
         logger.error("The task %s has been failed", self.task.name)
 
+    @override
+    def on_retry(self, exc_info) -> None:  # noqa: ANN001
+        super().on_retry(exc_info)
+        logger.info("The task %s will be retried", self.name.task)
+
 
 class HeavyLiftingTask(Task):
     Request = HeavyLiftingRequest
