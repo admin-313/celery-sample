@@ -14,7 +14,7 @@ class SendMessage:
 
     async def __call__(self, data: SendMessageRequest) -> str:
         task: result.AsyncResult = self._celery.send_task(
-            "test.send_message",
+            "test.io_bound",
             kwargs={"data": data.message},
         )
         return task.id
