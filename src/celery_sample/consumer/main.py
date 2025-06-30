@@ -16,7 +16,7 @@ celery = consumer_container.celery()
 @celery.task(
     bind=True,
     base=HeavyLiftingTask,
-    name="test.send_message",
+    name="test.io_bound",
     acks_late=True,
     task_acks_on_failure_or_timeout=True,
     autoretry_for=(ValueError,),
