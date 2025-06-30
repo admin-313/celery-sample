@@ -4,15 +4,15 @@ from celery import Celery, result
 
 
 @dataclass(frozen=True, slots=True)
-class SendMessageRequest:
+class IOBoundRequest:
     message: str
 
 
-class SendMessage:
+class IOBound:
     def __init__(self, celery: Celery) -> None:
         self._celery = celery
 
-    async def __call__(self, data: SendMessageRequest) -> str:
+    async def __call__(self, data: IOBoundRequest) -> str:
         task: result.AsyncResult = self._celery.send_task(
             "test.io_bound",
             kwargs={"data": data.message},

@@ -6,7 +6,7 @@ from fastapi.responses import JSONResponse
 from pydantic import BaseModel, Field
 
 from producer.actions.cpu_bound import CPUBound, CPUBoundRequest
-from producer.actions.send_message import SendMessage, SendMessageRequest
+from producer.actions.send_message import IOBound, IOBoundRequest
 from producer.bootstrap.containers import Container
 
 producer_router = APIRouter(prefix="/produce")
@@ -20,9 +20,9 @@ class ProducerRouterPost(BaseModel):
 @inject
 async def post_message(
     request: ProducerRouterPost,
-    action: Annotated[SendMessage, Depends(Provide[Container.send_message])],
+    action: Annotated[IOBound, Depends(Provide[Container.send_message])],
 ) -> JSONResponse:
-    action_data = SendMessageRequest(message=request.message)
+    action_data = IOBoundRequest(message=request.message)
     task_id = await action(data=action_data)
 
     return JSONResponse(content={"task_id": task_id}, status_code=202)
