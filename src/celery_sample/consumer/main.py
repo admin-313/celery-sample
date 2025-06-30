@@ -9,6 +9,7 @@ from consumer.bootstrap.heavy_lifting_request import HeavyLiftingTask
 logger = logging.getLogger(__name__)
 
 consumer_container = ConsumerContainer()
+consumer_container.wire(modules=[__name__])
 celery = consumer_container.celery()
 
 
